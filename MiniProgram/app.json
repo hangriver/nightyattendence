@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/register/register",
+    "pages/group/group"
+  ],
+  "window": {
+    "navigationBarTitleText": "南农工MEDIE181/2晚自习"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}
