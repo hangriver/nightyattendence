@@ -1,0 +1,14 @@
+<!--pages/register/register.wxml-->
+<view>进行身份登记（聪明的人都看得见框）</view>
+<form bindsubmit='sendID' bindreset='formReset'>
+<view>
+  <view>学号：</view>
+  <input type='number' name='sid'></input>
+</view>
+<view>
+  <view>姓名：</view>
+  <input type='string' name='name'></input>
+</view>
+<button form-type='submit'>提交</button>
+<button form-type='reset'>重置</button>
+</form>

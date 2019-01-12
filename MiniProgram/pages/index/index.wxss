@@ -1,0 +1,55 @@
+/* pages/index/index.wxss */
+.prompt {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: grey;
+  position: fixed;
+  align-items: center;
+  left: 25%;
+  top: 70%;
+}
+
+.prompt2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: grey;
+  position: fixed;
+  align-items: center;
+  left: 38%;
+  top: 80%;
+}
+
+.prompt3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: grey;
+  position: fixed;
+  align-items: center;
+  left: 36%;
+  top: 75%;
+}
+
+.prompt4 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: grey;
+  position: fixed;
+  align-items: center;
+  left: 30%;
+  top: 85%;
+}
+
+#scan {
+  width:300px;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  flex-direction: row;
+  align-items: center;
+  top: 3%;
+  left: 10%;
+}

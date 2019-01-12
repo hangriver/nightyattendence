@@ -1,0 +1,6 @@
+<!--pages/index/index.wxml-->
+<image id='scan' style="width:300px; height:300px;" mode="scaleToFill" src='/images/scan.png' bindtap='tapScan'></image>
+<text class='prompt'>点击上方按钮进行签到</text>
+<text class='prompt2' bindtap='tapGroup'>我的小组</text>
+<text class='prompt3' bindtap='LBSSign'>图书馆签到</text>
+<text class='prompt4' bindtap='LBSinfo'>此设备地理信息</text>
