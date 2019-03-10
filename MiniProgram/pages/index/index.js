@@ -19,7 +19,7 @@ Page({
           url: '/pages/register/register',
         });
       },
-    })
+    });
   },
 
   /**
@@ -225,10 +225,10 @@ Page({
                   if (res.data['status'] == 666) {
                     wx.showModal({
                       title: '签到成功',
-                      content: '积分已经增加，2小时内切勿关闭此对话框，否则就会嘿嘿嘿😏',
+                      content: '请自觉在足额学习后再次签到',
                     });
                     wx.showToast({
-                      title: '我靠你还真敢关，你完了',
+                      title: '请务必学习足够时间',
                       icon: 'fail',
                       mask: true,
                       duration: 300000
@@ -289,8 +289,102 @@ Page({
         })
       }
     })
+  },
+
+  startRUN: function(){
+    console.log('start')
+    wx.login({
+      success(res) {
+        if (res.code) {
+          // 发起网络请求
+          wx.request({
+            url: 'https://sign.student.ac.cn/login.php',
+            data: {
+              code: res.code
+            },
+            success: function (res) {
+              if (res.status == 666) {
+                console.log('ok');
+              } else {
+                console.log('failed');
+              }
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+
+    })
+    wx.getWeRunData({
+      success:function(res) {
+        wx.request({
+          url: 'http://sign.student.ac.cn/login.php',
+          data:{
+            iv: res.iv,
+            encrypteddata: res.encryptedData
+          },
+          success: function(res){
+           wx.setStorage({
+             key: 'step',
+             data: res.step,
+           })
+          }
+        })
+      }
+    })
+  },
+
+
+  endRUN: function(){
+    wx.login({
+      success(res) {
+        if (res.code) {
+          // 发起网络请求
+          wx.request({
+            url: 'https://sign.student.ac.cn/login.php',
+            data: {
+              code: res.code
+            },
+            success: function (res) {
+              if (res.status == 666) {
+                console.log('ok');
+              } else {
+                console.log('failed');
+              }
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+
+    })
+    wx.getWeRunData({
+      success(res) {
+        wx.request({
+          url: 'http://sign.student.ac.cn/login.php',
+          data: {
+            iv: res.iv,
+            encrypteddata: res.encryptedData
+          },
+          success(res) {
+            step = res.step
+            wx.getStorage({
+              key: 'step',
+              success: function (res) {
+                if (step - res.step >= 400) {
+                  wx.showModal({
+                    title: '成功',
+                    content: '您已完成跑操',
+                  })
+                }
+              }
+            })
+          }
+        })
+      }
+    })
   }
-
-
 
 })

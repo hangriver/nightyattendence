@@ -53,3 +53,23 @@
   top: 3%;
   left: 10%;
 }
+
+#start {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  flex-direction: row;
+  align-items: center;
+  top: 50%;
+  left: 10%;
+}
+
+#end {
+  display: fles;
+  justify-content: center;
+  position: fixed;
+  flex-direction: row;
+  align-items: center;
+  top:60%;
+  left:10%;
+}
