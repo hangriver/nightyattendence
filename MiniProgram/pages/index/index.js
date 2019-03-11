@@ -292,13 +292,29 @@ Page({
   },
 
   endRUN: function(){
+    let openid;
+    let step;
+    let uid;
+    let code;
+    wx.showLoading({
+      title: '获取运动情况中',
+      mask: true
+    })
+    wx.getStorage({
+      key: 'uid',
+      success: function(res) {
+        uid = res.data;
+      },
+    })
     console.log('endrun started');
     wx.login({
       success(res) {
         if (res.code) {
+          code = res.code;
+          console.log(code);
           console.log(res);
-          // 发起网络请求
-          wx.request({
+          // save code here
+          /*wx.request({
             url: 'https://sign.student.ac.cn/login.php',
             data: {
               code: res.code
@@ -307,6 +323,7 @@ Page({
               console.log(res);
               if (res.status == 666) {
                 console.log('ok');
+                openid = res.openid;
               } else {
                 console.log('failed');
               }
@@ -314,27 +331,34 @@ Page({
           })
         } else {
           console.log('登录失败！' + res.errMsg)
-        }
+        }**/
       }
-
-    })
     wx.getWeRunData({
       success(res) {
+        console.log(res.iv);
+        console.log(res.encryptedData);
         wx.request({
           url: 'https://sign.student.ac.cn/login.php',
           data: {
             iv: res.iv,
-            encrypteddata: res.encryptedData
+            encrypteddata: res.encryptedData,
+            code: code
           },
           success(res) {
-            if(res.step >= 12000){
+            console.log(res);
+            if(res.data.step >= 12000){
+              let step = res.data.step;
               wx.request({
                 url: 'https://sign.student.ac.cn/run.php',
+                data:{
+                  uid: uid
+                },
                 success: function(res){
-                  if(res.status==666){
+                  wx.hideLoading();
+                  if(res.data.status==666){
                     wx.showModal({
                       title: '跑操打卡成功',
-                      content: '关闭对话框',
+                      content: '今日运动：' + step + '步',
                     })
                   }else{
                     wx.showModal({
@@ -344,6 +368,7 @@ Page({
                   }}
               })
             } else{
+              wx.hideLoading();
               wx.showModal({
                 title: '步数不够哦',
                 content: '快出门🏃🏃吧',
@@ -352,6 +377,7 @@ Page({
           }
         })
       }
+    })}
     })
   }
 
