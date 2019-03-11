@@ -10,6 +10,11 @@
         $result = json_decode($res);
         if($result->openid){
             $openid = $result->openid;
+            $key = $result->session_key;
+            $connection = new mysqli("localhost","sign","Pencil1@mysql","sign");
+            $order = "INSERT INTO `wechat`(`openID`, `session_key`) VALUES (" . $openid . "," . $key . ")";
+            $result = $connection->query($order);
             $response['status'] = 666;
+            $response['openid'] = $openid;
             echo json_encode($response);
             }
