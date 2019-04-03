@@ -337,17 +337,19 @@ Page({
       success(res) {
         console.log(res.iv);
         console.log(res.encryptedData);
+        console.log(uid);
         wx.request({
           url: 'https://sign.student.ac.cn/login.php',
           data: {
             iv: res.iv,
             encrypteddata: res.encryptedData,
-            code: code
+            code: code,
+            uid: uid
           },
           success(res) {
+            let step = res.data.step;
             console.log(res);
-            if(res.data.step >= 12000){
-              let step = res.data.step;
+            if(res.data.step >= 10000){
               wx.request({
                 url: 'https://sign.student.ac.cn/run.php',
                 data:{
@@ -369,8 +371,9 @@ Page({
               })
             } else{
               wx.hideLoading();
+              let left = 10000-step;
               wx.showModal({
-                title: '步数不够哦',
+                title: '只差' + left + '步了',
                 content: '快出门🏃🏃吧',
               })
             }
